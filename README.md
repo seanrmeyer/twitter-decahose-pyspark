@@ -1,8 +1,5 @@
 # Using Twitter Decahose with Cavium <!-- omit in toc -->
 
-Go directly to Jupyter Notebook viewer version (with sample output). Not up-to-date as the markdown document, though.
- https://nbviewer.jupyter.org/github/caocscar/twitter-decahose-pyspark/blob/master/twitterCavium.ipynb
-
 ## Table of Contents <!-- omit in toc -->
 - [UM Hadoop Cavium Cluster](#um-hadoop-cavium-cluster)
 - [PySpark Interactive Shell](#pyspark-interactive-shell)
@@ -30,12 +27,10 @@ Go directly to Jupyter Notebook viewer version (with sample output). Not up-to-d
 - [Example: Filtering Tweets by Language](#example-filtering-tweets-by-language)
 
 
-## UM Hadoop Cavium Cluster
+## UM Great Lakes HPC
 Twitter data already resides in a directory on Cavium. Log in to Cavium to get started.
 
-SSH to `cavium-thunderx.arc-ts.umich.edu` `Port 22` using a SSH client (e.g. PuTTY on Windows) and login using your Cavium account and two-factor authentication.
-
-**Note:** ARC-TS has a [Getting Started with Hadoop User Guide](http://arc-ts.umich.edu/new-hadoop-user-guide/)
+SSH to `uniqname@greatlakes.arc-ts.umich.edu` `Port 22` using a SSH client (e.g. PuTTY on Windows) and login using your Cavium account and two-factor authentication.
 
 ## PySpark Interactive Shell
 The interactive shell is analogous to a python console. The following command starts up the interactive shell for PySpark with default settings in the `default` queue.  
