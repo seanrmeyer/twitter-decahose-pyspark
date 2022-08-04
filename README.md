@@ -1,7 +1,7 @@
 # Using Twitter Decahose with Cavium <!-- omit in toc -->
 
 ## Table of Contents <!-- omit in toc -->
-- [UM Hadoop Cavium Cluster](#um-hadoop-cavium-cluster)
+- [UM Hadoop Cavium Cluster](#u-m-great-lakes-hpc)
 - [PySpark Interactive Shell](#pyspark-interactive-shell)
   - [Exit Interactive Shell](#exit-interactive-shell)
 - [Using Python 3](#using-python-3)
@@ -27,7 +27,7 @@
 - [Example: Filtering Tweets by Language](#example-filtering-tweets-by-language)
 
 
-## UM Great Lakes HPC
+## U-M Great Lakes HPC
 Twitter data already resides in a directory on Cavium. Log in to Cavium to get started.
 
 SSH to `uniqname@greatlakes.arc-ts.umich.edu` `Port 22` using a SSH client (e.g. PuTTY on Windows) and login using your Cavium account and two-factor authentication.
