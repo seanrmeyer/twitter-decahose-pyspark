@@ -28,9 +28,9 @@
 
 
 ## U-M Great Lakes HPC
-Twitter data already resides in a directory on Cavium. Log in to Cavium to get started.
+Twitter data already resides in a directory on Cavium. Log in to Great Lakes to get started.
 
-SSH to `uniqname@greatlakes.arc-ts.umich.edu` `Port 22` using a SSH client (e.g. PuTTY on Windows) and login using your Cavium account and two-factor authentication.
+SSH to `uniqname@greatlakes.arc-ts.umich.edu` `Port 22` using a SSH client (e.g. PuTTY on Windows) and login using your uniqname and kerberos password and two-factor authentication.
 
 ## PySpark Interactive Shell
 The interactive shell is analogous to a python console. The following command starts up the interactive shell for PySpark with default settings in the `default` queue.  
