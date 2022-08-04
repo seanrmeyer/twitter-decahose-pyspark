@@ -1,7 +1,7 @@
 # Using Twitter Decahose with Cavium <!-- omit in toc -->
 
 ## Table of Contents <!-- omit in toc -->
-- [UM Hadoop Cavium Cluster](#u-m-great-lakes-hpc)
+- [U-M Great Lakes HPC](#u-m-great-lakes-hpc)
 - [PySpark Interactive Shell](#pyspark-interactive-shell)
   - [Exit Interactive Shell](#exit-interactive-shell)
 - [Using Python 3](#using-python-3)
