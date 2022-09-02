@@ -17,8 +17,8 @@ This tutorial covers the process for obtaining access to twitter data, filtering
   * [Summary](#summary)
   * [Saving Data](#saving-data)
   * [Complete Script](#complete-script)
-  * [Example: Finding text in a Tweet](#example--finding-text-in-a-tweet)
-  * [Example: Filtering Tweets by Location](#example--filtering-tweets-by-location)
+  * [Example: Finding text in a Tweet](#example-finding-text-in-a-tweet)
+  * [Example: Filtering Tweets by Location](#example-filtering-tweets-by-location)
     + [Coordinates](#coordinates)
     + [Place](#place)
     + [Place Types](#place-types)
@@ -27,7 +27,7 @@ This tutorial covers the process for obtaining access to twitter data, filtering
     + [City](#city)
     + [Neighborhood (US examples)](#neighborhood--us-examples-)
     + [POI (US examples)](#poi--us-examples-)
-  * [Example: Filtering Tweets by Language](#example--filtering-tweets-by-language)
+  * [Example: Filtering Tweets by Language](#example-filtering-tweets-by-language)
 - [Natural Language Toolkit and H2O Analysis](#natural-language-toolkit-and-h2o-analysis)
 
 ## Prerequisites
