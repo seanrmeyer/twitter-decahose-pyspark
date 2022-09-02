@@ -4,7 +4,7 @@ This tutorial covers the process for obtaining access to twitter data, filtering
 
 ## Table of Contents <!-- omit in toc -->
 - [Prerequisites](#prerequisites)
-  * [Principal Investigator (PI) Setup](#principal-investigator--pi--setup)
+  * [Principal Investigator (PI) Setup](#principal-investigator-pi-setup)
   * [Team Members' Setup](#team-members-setup)
   * [Connecting to Great Lakes OnDemand](#connecting-to-great-lakes-ondemand)
 - [Data Acquisition](#data-acquisition)
@@ -25,7 +25,7 @@ This tutorial covers the process for obtaining access to twitter data, filtering
     + [Admin (US examples)](#admin--us-examples-)
     + [City](#city)
     + [Neighborhood (US examples)](#neighborhood--us-examples-)
-    + [POI (US examples)](#poi--us-examples-)
+    + [POI (US examples)](#poi-us-examples-)
   * [Example: Filtering Tweets by Language](#example-filtering-tweets-by-language)
 - [Natural Language Toolkit and H2O Analysis](#natural-language-toolkit-and-h2o-analysis)
 
