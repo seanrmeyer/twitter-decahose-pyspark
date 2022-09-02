@@ -1,4 +1,4 @@
-# Using Twitter Decahose with Cavium <!-- omit in toc -->
+# Using Twitter Decahose with Great Lakes <!-- omit in toc -->
 
 ## Table of Contents <!-- omit in toc -->
 - [U-M Great Lakes HPC](#u-m-great-lakes-hpc)
