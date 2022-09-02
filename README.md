@@ -10,50 +10,51 @@ This tutorial covers the process for obtaining access to twitter data, filtering
   * [Method 2: Batch Job](#method-2--batch-job)
 - [Data Acquisition](#data-acquisition)
   * [Example: Parsing JSON](#example--parsing-json)
-    + [Read in twitter file](#read-in-twitter-file)
-    + [Selecting Data](#selecting-data)
-      - [Getting Nested Data](#getting-nested-data)
-      - [Getting Nested Data II](#getting-nested-data-ii)
-    + [Summary](#summary)
-    + [Saving Data](#saving-data)
-    + [Complete Script](#complete-script)
+  * [Read in twitter file](#read-in-twitter-file)
+  * [Selecting Data](#selecting-data)
+  * [Getting Nested Data](#getting-nested-data)
+  * [Getting Nested Data II](#getting-nested-data-ii)
+  * [Summary](#summary)
+  * [Saving Data](#saving-data)
+  * [Complete Script](#complete-script)
   * [Example: Finding text in a Tweet](#example--finding-text-in-a-tweet)
   * [Example: Filtering Tweets by Location](#example--filtering-tweets-by-location)
     + [Coordinates](#coordinates)
     + [Place](#place)
     + [Place Types](#place-types)
-      - [Country](#country)
-      - [Admin (US examples)](#admin--us-examples-)
-      - [City](#city)
-      - [Neighborhood (US examples)](#neighborhood--us-examples-)
-      - [POI (US examples)](#poi--us-examples-)
+    + [Country](#country)
+    + [Admin (US examples)](#admin--us-examples-)
+    + [City](#city)
+    + [Neighborhood (US examples)](#neighborhood--us-examples-)
+    + [POI (US examples)](#poi--us-examples-)
   * [Example: Filtering Tweets by Language](#example--filtering-tweets-by-language)
+- [Natural Language Toolkit and H2O Analysis](#natural-language-toolkit-and-h2o-analysis)
 
-# Prerequisites
+## Prerequisites
 
-## Principal Investigator (PI) Setup
-1. [Request Twitter Decahose project](https://forms.office.com/Pages/ResponsePage.aspx?id=tHdu5iRX10SHIQbfFgRQzv7PMSYa-JRDlzQs8rgy5WJUMjdNSlNGUzgySDMyM0hOSUEzMFFHR1VSNS4u)
+### Principal Investigator (PI) Setup
+1. PIs must [Request a Twitter Decahose project](https://forms.office.com/Pages/ResponsePage.aspx?id=tHdu5iRX10SHIQbfFgRQzv7PMSYa-JRDlzQs8rgy5WJUMjdNSlNGUzgySDMyM0hOSUEzMFFHR1VSNS4u)
 2. Sign up for the [Research Computing Package](https://arc.umich.edu/umrcp/) if you don't already have one, once approved add team members to Great Lakes Slurm account [ARC portal](https://portal.arc.umich.edu/)
 3. Sign up for an [ARC login](https://arc.umich.edu/login-request)
 
-## Team Members' Setup
+### Team Members' Setup
 1. When a PI submits a project request form and the project is approved, members identified on the form will receive a link to sign-up for access to the decahose data
 2. Sign up for an [ARC login](https://arc.umich.edu/login-request)
 3. Once a member has an ARC login individuals can be added by the PI on the [ARC portal](https://portal.arc.umich.edu/)
 
-## Method 1 (recommended for beginners): Connecting to Great Lakes OnDemand
+### Method 1 (recommended for beginners): Connecting to Great Lakes OnDemand
 1. Navigate to [Great Lakes](https://greatlakes.arc-ts.umich.edu/)
 2. Click on `My Interactive Sessions`
 3. Choose `Jupyter + Spark Advanced`
 4. Enter slurm account code. This is usually your PIs uniqname followed by a number and can be found on the [ARC portal](https://portal.arc.umich.edu/)
 5. Enter number of hours: (e.g. 4), nodes: (e.g. 1), cores: (e.g. 32), memory: (e.g. 180gb)
 
-## Method 2: Batch Job
+### Method 2: Batch Job
 Coming Soon
 
-# Data Acquisition
+## Data Acquisition
 
-## Example: Parsing JSON
+### Example: Parsing JSON
 [Generic PySpark data wrangling commands](https://github.com/caocscar/workshops/blob/master/pyspark/pyspark.md)
 
 ### Read in twitter file
@@ -70,9 +71,9 @@ This reads the JSONLINES data into a PySpark DataFrame. We can see the structure
 The schema shows the "root-level" attributes as columns of the dataframe. Any nested data is squashed into arrays of values (no keys included).
 
 **Reference**
- - PySpark JSON Files Guide https://spark.apache.org/docs/latest/sql-data-sources-json.html
+ - [PySpark JSON Files Guide](https://spark.apache.org/docs/latest/sql-data-sources-json.html)
 
- - Twitter Tweet Objects https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object.html
+ - [Twitter Tweet Objects](https://developer.twitter.com/en/docs/twitter-api/enterprise/data-dictionary/native-enriched-objects/tweet)
 
 ### Selecting Data
 For example, if we wanted to see what the tweet text is and when it was created, we could do the following.
@@ -85,7 +86,7 @@ The output is truncated by default. We can override this using the truncate argu
 
 `tweet.show(5, truncate=False)`
 
-#### Getting Nested Data
+### Getting Nested Data
 What if we wanted to get at data that was nested? Like in `user`.
 
 ```python
@@ -137,7 +138,7 @@ mentions2 = mentions.select('user_mentions.name','user_mentions.screen_name')
 mentions2.show(5)
 ```
 
-#### Getting Nested Data II
+### Getting Nested Data II
 What if we wanted to get at data in a list? Like the indices in `user_mentions`.
 ```python
 idx = mentions.select('user_mentions.indices')
@@ -154,11 +155,11 @@ Why the difference?  Because the underlying element is not a `struct` data type 
 ### Summary
 So if you access JSON data in Python like this:
 
-`(tweet['created_at'], tweet['user']['name'], tweet['user']['screen_name'], tweet['text'])`
+`(tweet['created_at'], tweet['user']['name'], tweet['user']['screen_name'], tweet['extended_tweet']['full_text'])`
 
 The equivalent of a PySpark Dataframe would be like this:
 
-`df.select('created_at','user.name','user.screen_name','text')`
+`df.select('created_at','user.name','user.screen_name','extended_tweet.full_text')`
 
 ### Saving Data
 Once you have constructed your PySpark DataFrame of interest, you should save it (append or overwrite) as a parquet file as so.
@@ -174,12 +175,12 @@ import os
 wdir = '/var/twitter/decahose/raw'
 file = 'decahose.2018-03-02.p2.bz2'
 df = sqlContext.read.json(os.path.join(wdir,file))
-six = df.select('created_at','user.name','user.screen_name','text','coordinates','place')
+six = df.select('created_at','user.name','user.screen_name','extended_tweet.full_text','coordinates','place')
 folder = 'twitterExtract'
 six.write.mode('overwrite').parquet(folder)
 ```
 
-## Example: Finding text in a Tweet 
+### Example: Finding text in a Tweet 
 Read in parquet file.
 ```python
 folder = 'twitterDemo'
@@ -190,42 +191,42 @@ Below are several ways to match text
 
 Exact match `==`
 ```python
-hello = df.filter(df.text == 'hello world')
+hello = df.filter(df.full_text == 'hello world')
 hello.show(10)
 ```
 
 `contains` method
 ```python
-food = df.filter(df['text'].contains(' food'))
-food = food.select('text')
+food = df.filter(df['full_text'].contains(' food'))
+food = food.select('full_text')
 food.show(10, truncate=False)
 ```
 
 `startswith` method
 ```python
-once = df.filter(df.text.startswith('Once'))
-once = once.select('text')
+once = df.filter(df.full_text.startswith('Once'))
+once = once.select('full_text')
 once.show(10, truncate=False)
 ```
 
 `endswith` method
 ```python
-ming = df.filter(df['text'].endswith('ming'))
-ming = ming.select('text')
+ming = df.filter(df['full_text'].endswith('ming'))
+ming = ming.select('full_text')
 ming.show(10, truncate=False)
 ```
 
 `like` method using SQL wildcards
 ```python
-mom = df.filter(df.text.like('%mom_'))
-mom = mom.select('text')
+mom = df.filter(df.full_text.like('%mom_'))
+mom = mom.select('full_text')
 mom.show(10, truncate=False)
 ```
 
 regular expressions ([workshop material](https://github.com/caocscar/workshops/tree/master/regex))
 ```python
-regex = df.filter(df['text'].rlike('[ia ]king'))
-regex = regex.select('text')
+regex = df.filter(df['full_text'].rlike('[ia ]king'))
+regex = regex.select('full_text')
 regex.show(10, truncate=False)
 ```
 
@@ -234,14 +235,23 @@ Applying more than one condition. When building DataFrame boolean expressions, u
 - `|` for `or`
 - `~` for `not`  
 ```python
-resta = df.filter(df.text.contains('resta') & df.text.endswith('ing'))
-resta = resta.select('text')
+resta = df.filter(df.full_text.contains('resta') & df.full_text.endswith('ing'))
+resta = resta.select('full_text')
 resta.show(10, truncate=False)
+```
+
+Using a list of keywords
+```python
+import pyspark.sql.functions as f
+
+li=['ketchup', 'mustard']
+
+tweets_filtered = df.filter(f.lower(df['extended_tweet.full_text']).rlike('|'.join(li)))
 ```
 
 **Reference**: http://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.Column
 
-## Example: Filtering Tweets by Location
+### Example: Filtering Tweets by Location
 
 Read in parquet file.
 ```python
@@ -254,7 +264,7 @@ From the [Twitter Geo-Objects documentation](https://developer.twitter.com/en/do
 
 > The `place` object is always present when a Tweet is geo-tagged, while the `coordinates` object is only present (non-null) when the Tweet is assigned an exact location. If an exact location is provided, the `coordinates` object will provide a [long, lat] array with the geographical coordinates, and a Twitter Place that corresponds to that location will be assigned.
 
-### Coordinates
+#### Coordinates
 Select Tweets that have gps coordinates. In this sample dataset, **157,954 / 173,398,330 tweets (~0.1%)** have `coordinates`.
 ```python
 coords = df.filter(df['coordinates'].isNotNull())
@@ -294,7 +304,7 @@ A2_bbox.count()
 
 **Done!**
 
-### Place
+#### Place
 Search for places by name. In this sample dataset, **2,067,918 / 173,398,330 tweets (~1.2%)** have `place`.
 
 Create separate columns from `place` object
@@ -313,7 +323,7 @@ MI.count()
 ```
 **Tip**: Refer to section ["Finding text in a Tweet"](#example-finding-text-in-a-tweet) for other search methods
 
-### Place Types
+#### Place Types
 There are five kinds of `place_type` in the twitter dataset in approximately descending geographic area:
 1. country
 2. admin
@@ -419,7 +429,7 @@ poi.show(10, truncate=False)
 |United States|US|poi|Mockingbird Vista|Mockingbird Vista|
 |United States|US|poi|Starbucks|Starbucks|
 
-## Example: Filtering Tweets by Language
+### Example: Filtering Tweets by Language
 Read in parquet file
 ```python
 wdir = '/data/twitter/decahose/parquet'
@@ -510,3 +520,88 @@ es|@Pykare La verdas calles y plazas en casi todo el país estan un desastre no 
 es|RT @dherranzba: Me traigo un gran proyecto competitivo entre manos, gracias a uno de los clubes competitivos más importantes en España. Es…
 
 We can see that there was one language misclassification of a tweet in the fourth row. This should have been classified as English.
+
+
+## Natural Language Toolkit and H2O Analysis
+```python
+pip install h2o
+pip install h2o_pysparkling_2.1
+```
+
+```python
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("SparklingWaterApp").getOrCreate()
+```
+
+Install and start pysparkling and the H2o cluster
+```python
+from pysparkling import *
+hc = H2OContext.getOrCreate()
+```
+
+View columns
+```python
+df.columns
+```
+
+Start H2o
+```python
+import h2o
+
+from h2o.estimators.word2vec import H2OWord2vecEstimator  
+from h2o.estimators.gbm import H2OGradientBoostingEstimator  
+from h2o.estimators.deeplearning import H2OAutoEncoderEstimator, H2ODeepLearningEstimator 
+from pysparkling import *  
+from nltk.corpus import stopwords
+```
+
+Tokenize words
+```python
+from pyspark.ml.feature import RegexTokenizer, StopWordsRemover
+import pyspark.sql.functions as f
+tokenizer = RegexTokenizer(inputCol='text', outputCol = 'tokenized_words', pattern="\\W+", minTokenLength = 3)
+#filter_star_rating = filtered_data_year_category.filter(filtered_data_year_category.star_rating == stars)
+tokenized_words = tokenizer.transform(df)
+remover = StopWordsRemover(inputCol='tokenized_words', outputCol = 'word_tokens')
+clean_tokens = remover.transform(tokenized_words)
+word_counts = clean_tokens.withColumn('word', f.explode(f.col('word_tokens'))).groupBy('word').count().sort('count', ascending=False)
+word_counts.show()
+```
+
+Start natural language toolkit and download the lexicon
+```python
+import nltk
+nltk.download('vader_lexicon')
+```
+
+Calculate sample polarity score
+```python
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+vds = SentimentIntensityAnalyzer()
+
+text = 'I like turtles.'
+vds.polarity_scores(text)
+```
+
+
+```python
+df_pd = df.toPandas()
+
+analyzer = SentimentIntensityAnalyzer()
+df_pd['compound'] = [analyzer.polarity_scores(x)['compound'] for x in df_pd['full_text']]
+df_pd['neg'] = [analyzer.polarity_scores(x)['neg'] for x in df_pd['full_text']]
+df_pd['neu'] = [analyzer.polarity_scores(x)['neu'] for x in df_pd['full_text']]
+df_pd['pos'] = [analyzer.polarity_scores(x)['pos'] for x in df_pd['full_text']]
+df_pd.columns
+```
+
+View the data
+```python
+df_pd.head()
+```
+
+Write data to an excel spreadsheet
+```python
+import openpyxl
+df_pd.to_excel(r'sentiment_data.xlsx', index = False)
+```
