@@ -5,10 +5,10 @@ This tutorial covers the process for obtaining access to twitter data, filtering
 ## Table of Contents <!-- omit in toc -->
 - [Prerequisites](#prerequisites)
   * [Principal Investigator (PI) Setup](#principal-investigator--pi--setup)
-  * [Team Members' Setup](#team-members--setup)
+  * [Team Members' Setup](#team-members-setup)
   * [Connecting to Great Lakes OnDemand](#connecting-to-great-lakes-ondemand)
 - [Data Acquisition](#data-acquisition)
-  * [Example: Parsing JSON](#example--parsing-json)
+  * [Example: Parsing JSON](#example-parsing-json)
   * [Read in twitter file](#read-in-twitter-file)
   * [Selecting Data](#selecting-data)
   * [Getting Nested Data](#getting-nested-data)
