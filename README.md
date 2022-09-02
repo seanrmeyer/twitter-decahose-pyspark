@@ -1,5 +1,7 @@
 # Using Twitter Decahose with Great Lakes <!-- omit in toc -->
 
+This tutorial covers the process for obtaining access to twitter data, filtering to a subset of tweets based on multiple keywords, and conducting a simple analysis using Jupyter Notebook and PySpark on Great Lakes HPC.
+
 ## Table of Contents <!-- omit in toc -->
 - [U-M Great Lakes HPC](#u-m-great-lakes-hpc)
 - [PySpark Interactive Shell](#pyspark-interactive-shell)
@@ -26,71 +28,39 @@
     - [POI (US examples)](#poi-us-examples)
 - [Example: Filtering Tweets by Language](#example-filtering-tweets-by-language)
 
+# Prerequisites
 
-## U-M Great Lakes HPC
-Twitter data already resides in a directory on Cavium. Log in to Great Lakes to get started.
+## Principal Investigator (PI) Setup
 
-SSH to `uniqname@greatlakes.arc-ts.umich.edu` `Port 22` using a SSH client (e.g. PuTTY on Windows) and login using your uniqname and kerberos password and two-factor authentication.
+1. [Request Twitter Decahose project](https://forms.office.com/Pages/ResponsePage.aspx?id=tHdu5iRX10SHIQbfFgRQzv7PMSYa-JRDlzQs8rgy5WJUMjdNSlNGUzgySDMyM0hOSUEzMFFHR1VSNS4u)
+2. Sign up for the [Research Computing Package](https://arc.umich.edu/umrcp/) if you don't already have one, once approved add team members to Great Lakes Slurm account [ARC portal](https://portal.arc.umich.edu/)
+3. Sign up for an [ARC login](https://arc.umich.edu/login-request)
 
-## PySpark Interactive Shell
-The interactive shell is analogous to a python console. The following command starts up the interactive shell for PySpark with default settings in the `default` queue.  
-`pyspark --master yarn --queue default`
+## Team Members' Setup
 
-The following line adds some custom settings.  The 'XXXX' should be a number between 4040 and 4150.  
-`pyspark --master yarn --queue default --executor-cores 5 --num-executors 200 --executor-memory 3g`
+1. When a PI submits a project request form and the project is approved, members identified on the form will receive a link to sign-up for access to the decahose data
+2. Sign up for an [ARC login](https://arc.umich.edu/login-request)
+3. Once a member has an ARC login individuals can be added by the PI on the [ARC portal](https://portal.arc.umich.edu/)
 
-**Note:** You might get a warning message that looks like `WARN Utils: Service 'SparkUI' could not bind on port 40XX. Attempting port 40YY.` This usually resolves itself after a few seconds. If not, try again at a later time.
+## Method 1 (recommended for beginners): Connecting to Great Lakes OnDemand
+1. Navigate to [Great Lakes](https://greatlakes.arc-ts.umich.edu/)
+2. Click on `My Interactive Sessions`
+3. Choose `Jupyter + Spark Advanced`
+4. Enter slurm account code. This is usually your PIs uniqname followed by a number and can be found on the [ARC portal](https://portal.arc.umich.edu/)
+5. Enter number of hours: (e.g. 4), nodes: (e.g. 1), cores: (e.g. 32), memory: (e.g. 180gb)
 
-The interactive shell does not start with a clean slate. It already has several objects defined for you. 
-- `sc` is a SparkContext
-- `sqlContext` is a SQLContext object
-- `spark` is a SparkSession object
-
-You can check this by typing the variable names.
-```python
-sc
-sqlContext
-spark
-```
-
-### Exit Interactive Shell
-Type `exit()` or press Ctrl-D
-
-## Using Python 3
-The current default python version for pyspark is 2.7. To set it up for Python 3, type the following in the terminal before launching the shell.
-```bash
-export PYSPARK_PYTHON=/sw/dsi/aarch64/centos7/python/3.7.4/bin/python3
-```
-
-## Using Jupyter Notebook with PySpark (optional)
-**Note**: Jupyter notebooks do not run on the Cavium cluster. They currently only run on the login node. This means only the login node's resources (i.e. less resources than the cluster) are available to the Jupyter notebook.
-
-1. Open a command prompt/terminal in Windows/Mac. You should have PuTTY in your PATH (for Windows).  Port 8889 is arbitrarily chosen.  The first localhost port is for your local machine. The second localhost port is for Cavium. They do not necessarily have to be the same.  
-`putty.exe -ssh -L localhost:8889:localhost:8889 cavium-thunderx.arc-ts.umich.edu` (Windows)  
-`ssh -L localhost:8889:localhost:8889 uniqname@cavium-thunderx.arc-ts.umich.edu` (Mac/Linux)
-2. This should open a ssh client for Cavium. Log in as usual.
-3. From the Cavium terminal, type the following (replace XXXX with number between 4040 and 4150):
-```bash
-export PYSPARK_DRIVER_PYTHON=jupyter  
-export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8889'  # same as second port listed above
-export PYSPARK_PYTHON=/sw/dsi/aarch64/centos7/python/3.7.4/bin/python3  # Jupyter notebook setup only supports Python 2.7; this is a placeholder for when it's fixed
-pyspark --master yarn --queue default --executor-cores 5 --num-executors 200 --executor-memory 3g --conf spark.ui.port=XXXX
-```
-4. Copy/paste the URL (from your terminal where you launched jupyter notebook) into your browser. The URL should look something like this but with a different token.
-http://localhost:8889/?token=745f8234f6d0cf3b362404ba32ec7026cb6e5ea7cc960856  
-If the first localhost port is different from the second, then change the url to match the first port number in order for Jupyter notebook to show up.
-
-5. You should be connected.
+## Method 2: Batch Job
+Coming Soon
 
 ## Example: Parsing JSON
-Generic PySpark data wrangling commands can be found at https://github.com/caocscar/workshops/blob/master/pyspark/pyspark.md
+[Generic PySpark data wrangling commands](https://github.com/caocscar/workshops/blob/master/pyspark/pyspark.md)
 
 ### Read in twitter file
 The twitter data is stored in JSONLINES format and compressed using bz2. PySpark has a `sqlContext.read.json` function that can handle this for us (including the decompression).
 ```python
 import os
 wdir = '/var/twitter/decahose/raw'
-df2 = sqlContext.read.json(os.path.join(wdir,'decahose.2018-03-02.p2.bz2'))
+df2 = sqlContext.read.json(os.path.join(wdir,'decahose.2022-03-02.p2.bz2'))
 ```
 This reads the JSONLINES data into a PySpark DataFrame. We can see the structure of the JSON data using the `printSchema` method.
 
