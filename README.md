@@ -2,7 +2,7 @@
 
 This tutorial covers the process for obtaining access to twitter data, filtering to a subset of tweets based on multiple keywords, and conducting a simple analysis using Jupyter Notebook and PySpark on Great Lakes HPC.
 
-{:toc}
+* TOC {:toc}
 
 ## Table of Contents <!-- omit in toc -->
 - [Prerequisites](#prerequisites)
