@@ -2,15 +2,18 @@
 
 This tutorial covers the process for obtaining access to twitter data, filtering to a subset of tweets based on multiple keywords, and conducting a simple analysis using Jupyter Notebook and PySpark on Great Lakes HPC.
 
+{:toc}
+
 ## Table of Contents <!-- omit in toc -->
-- [U-M Great Lakes HPC](#u-m-great-lakes-hpc)
-- [PySpark Interactive Shell](#pyspark-interactive-shell)
-  - [Exit Interactive Shell](#exit-interactive-shell)
-- [Using Python 3](#using-python-3)
-- [Using Jupyter Notebook with PySpark](#using-jupyter-notebook-with-pyspark-optional)
-- [Example: Parsing JSON](#example-parsing-json)
-  - [Read in twitter file](#read-in-twitter-file)
-  - [Selecting Data](#selecting-data)
+- [Prerequisites](#prerequisites)
+  - [U-M Great Lakes HPC](#u-m-great-lakes-hpc)
+  - [PySpark Interactive Shell](#pyspark-interactive-shell)
+    - [Exit Interactive Shell](#exit-interactive-shell)
+  - [Using Python 3](#using-python-3)
+  - [Using Jupyter Notebook with PySpark](#using-jupyter-notebook-with-pyspark-optional)
+  - [Example: Parsing JSON](#example-parsing-json)
+    - [Read in twitter file](#read-in-twitter-file)
+    - [Selecting Data](#selecting-data)
     - [Getting Nested Data](#getting-nested-data)
     - [Getting Nested Data II](#getting-nested-data-ii)
   - [Summary](#summary)
@@ -31,13 +34,11 @@ This tutorial covers the process for obtaining access to twitter data, filtering
 # Prerequisites
 
 ## Principal Investigator (PI) Setup
-
 1. [Request Twitter Decahose project](https://forms.office.com/Pages/ResponsePage.aspx?id=tHdu5iRX10SHIQbfFgRQzv7PMSYa-JRDlzQs8rgy5WJUMjdNSlNGUzgySDMyM0hOSUEzMFFHR1VSNS4u)
 2. Sign up for the [Research Computing Package](https://arc.umich.edu/umrcp/) if you don't already have one, once approved add team members to Great Lakes Slurm account [ARC portal](https://portal.arc.umich.edu/)
 3. Sign up for an [ARC login](https://arc.umich.edu/login-request)
 
 ## Team Members' Setup
-
 1. When a PI submits a project request form and the project is approved, members identified on the form will receive a link to sign-up for access to the decahose data
 2. Sign up for an [ARC login](https://arc.umich.edu/login-request)
 3. Once a member has an ARC login individuals can be added by the PI on the [ARC portal](https://portal.arc.umich.edu/)
@@ -51,6 +52,8 @@ This tutorial covers the process for obtaining access to twitter data, filtering
 
 ## Method 2: Batch Job
 Coming Soon
+
+# Data Acquisition
 
 ## Example: Parsing JSON
 [Generic PySpark data wrangling commands](https://github.com/caocscar/workshops/blob/master/pyspark/pyspark.md)
