@@ -6,8 +6,7 @@ This tutorial covers the process for obtaining access to twitter data, filtering
 - [Prerequisites](#prerequisites)
   * [Principal Investigator (PI) Setup](#principal-investigator--pi--setup)
   * [Team Members' Setup](#team-members--setup)
-  * [Method 1 (recommended for beginners): Connecting to Great Lakes OnDemand](#method-1--recommended-for-beginners---connecting-to-great-lakes-ondemand)
-  * [Method 2: Batch Job](#method-2--batch-job)
+  * [Connecting to Great Lakes OnDemand](#connecting-to-great-lakes-ondemand)
 - [Data Acquisition](#data-acquisition)
   * [Example: Parsing JSON](#example--parsing-json)
   * [Read in twitter file](#read-in-twitter-file)
@@ -42,15 +41,12 @@ This tutorial covers the process for obtaining access to twitter data, filtering
 2. Sign up for an [ARC login](https://arc.umich.edu/login-request)
 3. Once a member has an ARC login individuals can be added by the PI on the [ARC portal](https://portal.arc.umich.edu/)
 
-### Method 1 (recommended for beginners): Connecting to Great Lakes OnDemand
+### Connecting to Great Lakes OnDemand
 1. Navigate to [Great Lakes](https://greatlakes.arc-ts.umich.edu/)
 2. Click on `My Interactive Sessions`
 3. Choose `Jupyter + Spark Advanced`
 4. Enter slurm account code. This is usually your PIs uniqname followed by a number and can be found on the [ARC portal](https://portal.arc.umich.edu/)
 5. Enter number of hours: (e.g. 4), nodes: (e.g. 1), cores: (e.g. 32), memory: (e.g. 180gb)
-
-### Method 2: Batch Job
-Coming Soon
 
 ## Data Acquisition
 
