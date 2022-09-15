@@ -64,7 +64,7 @@ df = sqlContext.read.json(os.path.join(wdir,'decahose.2022-03-02.p2.bz2'))
 ```
 
 ### (Coming Soon) Read historical data from locker 
-It is recommended to use Globus to transfer data from locker to `/scratch/<root_account/`
+Historical data on Locker is only mounted to the login node so it is recommended to use Globus `umich#greatlakes` to transfer data from locker to `/scratch/<root_account/`
 
 ### Print data structure
 
