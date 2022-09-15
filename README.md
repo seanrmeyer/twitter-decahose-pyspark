@@ -53,13 +53,19 @@ This tutorial covers the process for obtaining access to twitter data, filtering
 ### Example: Parsing JSON
 [Generic PySpark data wrangling commands](https://github.com/caocscar/workshops/blob/master/pyspark/pyspark.md)
 
-### Read in twitter file
+### Read in twitter file from Turbo Drive
+The Turbo Drive contains approximately 18 months of the most recent data. For historical data see the next section.
+
 The twitter data is stored in JSONLINES format and compressed using bz2. PySpark has a `sqlContext.read.json` function that can handle this for us (including the decompression).
 ```python
 import os
 wdir = '/nfs/turbo/twitter-decahose/decahose/raw'
 df = sqlContext.read.json(os.path.join(wdir,'decahose.2022-03-02.p2.bz2'))
 ```
+
+### (Coming Soon) Read historical data from locker 
+It is recommended to use Globus to transfer data from locker to `/scratch/<root_account/`
+
 This reads the JSONLINES data into a PySpark DataFrame. We can see the structure of the JSON data using the `printSchema` method.
 
 `df.printSchema()`
