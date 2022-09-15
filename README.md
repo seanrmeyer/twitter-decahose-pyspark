@@ -58,7 +58,7 @@ The twitter data is stored in JSONLINES format and compressed using bz2. PySpark
 ```python
 import os
 wdir = '/nfs/turbo/twitter-decahose/decahose/raw'
-df2 = sqlContext.read.json(os.path.join(wdir,'decahose.2022-03-02.p2.bz2'))
+df = sqlContext.read.json(os.path.join(wdir,'decahose.2022-03-02.p2.bz2'))
 ```
 This reads the JSONLINES data into a PySpark DataFrame. We can see the structure of the JSON data using the `printSchema` method.
 
