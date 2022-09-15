@@ -66,6 +66,8 @@ df = sqlContext.read.json(os.path.join(wdir,'decahose.2022-03-02.p2.bz2'))
 ### (Coming Soon) Read historical data from locker 
 It is recommended to use Globus to transfer data from locker to `/scratch/<root_account/`
 
+### Print data structure
+
 This reads the JSONLINES data into a PySpark DataFrame. We can see the structure of the JSON data using the `printSchema` method.
 
 `df.printSchema()`
