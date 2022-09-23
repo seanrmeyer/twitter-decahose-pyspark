@@ -187,7 +187,7 @@ six.write.mode('overwrite').parquet(folder)
 ### Example: Finding text in a Tweet 
 Read in parquet file.
 ```python
-folder = 'twitterDemo'
+folder = 'twitterExtract'
 df = sqlContext.read.parquet(folder)
 ```
 Below are several ways to match text 
@@ -195,41 +195,41 @@ Below are several ways to match text
 
 Exact match `==`
 ```python
-hello = df.filter(df.full_text == 'hello world')
+hello = df.filter(df.extended_tweet.full_text == 'hello world')
 hello.show(10)
 ```
 
 `contains` method
 ```python
-food = df.filter(df['full_text'].contains(' food'))
+food = df.filter(df['extended_tweet']['full_text'].contains(' food'))
 food = food.select('full_text')
 food.show(10, truncate=False)
 ```
 
 `startswith` method
 ```python
-once = df.filter(df.full_text.startswith('Once'))
+once = df.filter(df.extended_tweet.full_text.startswith('Once'))
 once = once.select('full_text')
 once.show(10, truncate=False)
 ```
 
 `endswith` method
 ```python
-ming = df.filter(df['full_text'].endswith('ming'))
+ming = df.filter(df['extended_tweet']['full_text'].endswith('ming'))
 ming = ming.select('full_text')
 ming.show(10, truncate=False)
 ```
 
 `like` method using SQL wildcards
 ```python
-mom = df.filter(df.full_text.like('%mom_'))
+mom = df.filter(df.extended_tweet.full_text.like('%mom_'))
 mom = mom.select('full_text')
 mom.show(10, truncate=False)
 ```
 
 regular expressions ([workshop material](https://github.com/caocscar/workshops/tree/master/regex))
 ```python
-regex = df.filter(df['full_text'].rlike('[ia ]king'))
+regex = df.filter(df['extended_tweet']['full_text'].rlike('[ia ]king'))
 regex = regex.select('full_text')
 regex.show(10, truncate=False)
 ```
@@ -239,7 +239,7 @@ Applying more than one condition. When building DataFrame boolean expressions, u
 - `|` for `or`
 - `~` for `not`  
 ```python
-resta = df.filter(df.full_text.contains('resta') & df.full_text.endswith('ing'))
+resta = df.filter(df.extended_tweet.full_text.contains('resta') & df.extended_tweet.full_text.endswith('ing'))
 resta = resta.select('full_text')
 resta.show(10, truncate=False)
 ```
@@ -259,7 +259,7 @@ tweets_filtered = df.filter(f.lower(df['extended_tweet.full_text']).rlike('|'.jo
 
 Read in parquet file.
 ```python
-folder = 'twitterDemo'
+folder = 'twitterExtract'
 df = sqlContext.read.parquet(folder)
 ```
 From the [Twitter Geo-Objects documentation](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/geo-objects):
@@ -436,8 +436,8 @@ poi.show(10, truncate=False)
 ### Example: Filtering Tweets by Language
 Read in parquet file
 ```python
-wdir = '/data/twitter/decahose/parquet'
-df = spark.read.parquet(os.path.join(wdir,'decahose.2019-07-01*'))
+wdir = 'twitterExtract'
+df = spark.read.parquet(os.path.join(wdir)
 ```
 
 From the [Twitter documentation about language](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/filter-realtime/guides/premium-operators):
@@ -528,8 +528,8 @@ We can see that there was one language misclassification of a tweet in the fourt
 
 ## Natural Language Toolkit and H2O Analysis
 ```python
-pip install h2o
-pip install h2o_pysparkling_2.1
+%pip install h2o
+%pip install h2o_pysparkling_2.1
 ```
 
 ```python
