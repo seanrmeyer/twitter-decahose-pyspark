@@ -82,7 +82,7 @@ The schema shows the "root-level" attributes as columns of the dataframe. Any ne
 ### Selecting Data
 For example, if we wanted to see what the tweet text is and when it was created, we could do the following.
 ```python
-tweet = df.select('created_at','extended_tweet.full_text') # OR `tweet = df.select('created_at','text')` for data prior to November 8th, 2017
+tweet = df.select('created_at','extended_tweet.full_text') OR `tweet = df.select('created_at','text')` for data prior to November 8th, 2017
 tweet.printSchema()
 tweet.show(5)
 ```
