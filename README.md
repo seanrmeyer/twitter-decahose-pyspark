@@ -56,7 +56,7 @@ This tutorial covers the process for obtaining access to twitter data, filtering
 ### Read in twitter file from Turbo Drive
 The Turbo Drive contains approximately 18 months of the most recent data. For historical data see the next section.
 
-The twitter data is stored in JSONLINES format and compressed using bz2. PySpark has a `sqlContext.read.json` function that can handle this for us (including the decompression).
+The twitter data is stored in JSONLINES format and compressed using bz2. PySpark has a `sqlContext.read.json` function that can handle this for us (including the decompression). You can pass a file, directory, or a combination using a wildcard at the end of the path `*`.
 ```python
 import os
 wdir = '/nfs/turbo/twitter-decahose/decahose/raw'
